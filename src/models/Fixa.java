@@ -9,6 +9,7 @@ public class Fixa extends Solicitacao{
     public Fixa(int ano, int semestre, String curso, String disciplina, int vagas, String horario){
         super(ano, semestre, curso);
         this.disciplina = disciplina;
+        this.vagas = vagas;
         this.horario = horario;
     }
 }
