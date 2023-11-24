@@ -10,4 +10,16 @@ public abstract class Solicitacao{
         this.semestre = semestre;
         this.curso = curso;
     }
+
+    public int getAno(){
+        return this.ano;
+    }
+
+    public int getSemestre(){
+        return this.semestre;
+    }
+
+    public String getCurso(){
+        return this.curso;
+    }
 }
