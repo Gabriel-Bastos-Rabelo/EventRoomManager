@@ -1,1 +1,2 @@
 sala;60;202;paulo freire asa norte
+auditório;100;auditorio paulo freire;predio central

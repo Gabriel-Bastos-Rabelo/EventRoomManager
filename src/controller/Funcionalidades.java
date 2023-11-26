@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -26,6 +28,7 @@ public class Funcionalidades {
         this.dados = new Hashtable<>();
         this.espacos = new Hashtable<>();
         this.carregar();
+        this.desmarcarHorariosExpirados();
     }
 
     public void carregar(){
@@ -170,6 +173,23 @@ public class Funcionalidades {
             if(melhorOpcao != null){
                 this.marcarHorarios(melhorOpcao, horarios);
                 dados.get(melhorOpcao).put(horario, new Eventual(ano, semestre, curso, finalidade, vagas, horario));
+                File arquivo = new File("./solicitacoes.txt");
+                try{
+                    FileWriter fw = new FileWriter(arquivo, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+
+                   
+                    bw.write("eventual" + ";" + ano + ";" + semestre + ";" + curso + ";" + finalidade + ";" + vagas + ";" + horario + "\n");
+
+                    bw.close();
+                    fw.close();
+
+
+
+                }catch(IOException exception){
+                    System.out.println(exception.getMessage());
+                }
                 return true;
             }
         }
@@ -339,5 +359,87 @@ public class Funcionalidades {
         }
 
         return null;
+    }
+
+    public void desmarcarHorariosExpirados(){
+        Enumeration<Espaco> espacos = this.dados.keys();
+
+        while(espacos.hasMoreElements()){
+            Espaco espaco = espacos.nextElement();
+
+            Enumeration<String> horarios = this.dados.get(espaco).keys();
+
+            while(horarios.hasMoreElements()){
+                String horario = horarios.nextElement();
+
+                Solicitacao solicitacao = this.dados.get(espaco).get(horario);
+
+                if(solicitacao instanceof Eventual){
+                    String horarioSolicitacao = ((Eventual) solicitacao).getHorario();
+
+                    LocalDate localdate = LocalDate.now();
+                    DayOfWeek dayOfWeek = localdate.getDayOfWeek();
+                    int dayOfWeekNumber = dayOfWeek.getValue();
+                    
+                
+                    String turno = "";
+                    for(int i = 0; i < horarioSolicitacao.length(); i++){
+                        if(horarioSolicitacao.charAt(i) == 'T'){
+                            turno = "T";
+                            break;
+                        }
+                        else if(horarioSolicitacao.charAt(i) == 'M'){
+                            turno = "M";
+                            break;
+                        }
+                        else if(horarioSolicitacao.charAt(i) == 'N'){
+                            turno = "N";
+                            break;
+                        }
+                    }
+
+                    String dias = horarioSolicitacao.substring(0, horarioSolicitacao.indexOf(turno));
+                    int ultimoDia = Integer.parseInt(dias.substring(dias.length()-1, dias.length()));
+                    if(ultimoDia < (dayOfWeekNumber + 1)%8){
+                        this.desmarcarHorariosEventuais(espaco, solicitacao);
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    public void desmarcarHorariosEventuais(Espaco espaco, Solicitacao solicitacao){
+        int matriz[][] = espaco.getMatriz();
+
+        String h = ((Eventual) solicitacao).getHorario();
+
+        ArrayList<String> horarios = this.gerarCombinacoesHorarios(h);
+
+
+        int posicao;
+        for(String horario : horarios){
+            if(horario.charAt(1) == 'M'){
+
+                posicao = (6*0) + Integer.parseInt(horario.substring(2));
+                
+            }
+            else if(horario.charAt(1) == 'T'){
+                posicao = (6*1) + Integer.parseInt(horario.substring(2));
+               
+            }
+            else{
+                posicao = (6*2) + Integer.parseInt(horario.substring(2));
+                
+            }
+
+           
+            matriz[Integer.parseInt(horario.substring(0,1))][posicao] = 0;
+               
+        }
+
+        espaco.setMatriz(matriz);
+
     }
 }
