@@ -361,6 +361,39 @@ public class Funcionalidades {
         return null;
     }
 
+
+    public ArrayList<Solicitacao> gerarRelatorioPorCurso(String curso){
+        //private Hashtable<Espaco, Hashtable<String, Solicitacao>> dados;
+
+        Enumeration<Espaco> e = dados.keys();
+
+        ArrayList<Solicitacao> solicitacoes = new ArrayList<>();
+
+        while(e.hasMoreElements()){
+
+            Espaco key = e.nextElement();
+
+            Hashtable<String, Solicitacao> solicitacoesEspaco = dados.get(key);
+            
+            Enumeration<String> i = solicitacoesEspaco.keys();
+
+            while(i.hasMoreElements()){
+
+                String keySala = i.nextElement();
+
+                Solicitacao solicitacao = solicitacoesEspaco.get(keySala);
+
+                if(solicitacao.getCurso().equals(curso)){
+                    solicitacoes.add(solicitacao);
+                }
+            }
+
+
+        }
+
+        return solicitacoes;
+    }
+
     public void desmarcarHorariosExpirados(){
         Enumeration<Espaco> espacos = this.dados.keys();
 

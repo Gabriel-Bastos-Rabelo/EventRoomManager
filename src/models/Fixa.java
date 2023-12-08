@@ -12,4 +12,16 @@ public class Fixa extends Solicitacao{
         this.vagas = vagas;
         this.horario = horario;
     }
+
+    public String getDisciplina(){
+        return this.disciplina;
+    }
+
+    public String getHorario(){
+        return this.horario;
+    }
+
+    public int getVagas(){
+        return this.vagas;
+    }
 }

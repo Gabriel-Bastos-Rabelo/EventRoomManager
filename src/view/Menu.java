@@ -1,11 +1,14 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import controller.Funcionalidades;
+import models.Fixa;
+import models.Eventual;
 import models.Solicitacao;
 
 public class Menu { 
@@ -21,7 +24,8 @@ public class Menu {
             System.out.println("3- Efetuar solicitação fixa");
             System.out.println("4- Efetuar solicitação eventual");
             System.out.println("5- Gerar relatório por sala");
-            System.out.println("6- Sair");
+            System.out.println("6- Gerar relatório por curso");
+            System.out.println("7- Sair");
 
             Scanner entrada = new Scanner(System.in);
 
@@ -29,7 +33,7 @@ public class Menu {
 
                 int opcao = entrada.nextInt();
                 entrada.nextLine();
-                if(opcao == 6){
+                if(opcao == 7){
                     break;
                 }
                 switch(opcao){
@@ -122,7 +126,15 @@ public class Menu {
                                     String chave = chaves.nextElement();
                                     Solicitacao solicitacao = solicitacoes.get(chave);
 
-                                    System.out.println("Ano: " + solicitacao.getAno() + ", Semestre: " + solicitacao.getSemestre() + ", Curso: " + solicitacao.getCurso() + "\n");
+                                    if(solicitacao instanceof Fixa){
+
+                                        System.out.println("Ano: " + solicitacao.getAno() + ", Semestre: " + solicitacao.getSemestre() + ", Curso: " + solicitacao.getCurso() + ", disciplina: " + (((Fixa) solicitacao).getDisciplina()) + ", Vagas: " + (((Fixa) solicitacao).getVagas()) + ", Horários: " + (((Fixa) solicitacao).getHorario()));
+                                    }
+
+                                    else{
+
+                                        System.out.println("Ano: " + solicitacao.getAno() + ", Semestre: " + solicitacao.getSemestre() + ", Curso: " + solicitacao.getCurso() + ", finalidade: " + (((Eventual) solicitacao).getFinalidade()) + ", Vagas: " + (((Eventual) solicitacao).getVagas()) + ", Horários: " + (((Eventual) solicitacao).getHorario()));
+                                    }
                                 }
                 
                             }
@@ -135,6 +147,26 @@ public class Menu {
                         }
 
                         break;
+
+                    case 6:
+                        System.out.println("Digite o nome do curso:");
+                        String nomeCursoRelatorio = entrada.nextLine();
+
+                        ArrayList<Solicitacao> solicitacoesPorCurso = funcionalidades.gerarRelatorioPorCurso(nomeCursoRelatorio);
+
+                        for(Solicitacao s : solicitacoesPorCurso){
+                            if(s instanceof Fixa){
+
+                                System.out.println("Ano: " + s.getAno() + ", Semestre: " + s.getSemestre() + ", Curso: " + s.getCurso() + ", disciplina: " + (((Fixa) s).getDisciplina()) + ", Vagas: " + (((Fixa) s).getVagas()) + ", Horários: " + (((Fixa) s).getHorario()));
+                            }
+
+                            else{
+
+                                System.out.println("Ano: " + s.getAno() + ", Semestre: " + s.getSemestre() + ", Curso: " + s.getCurso() + ", finalidade: " + (((Eventual) s).getFinalidade()) + ", Vagas: " + (((Eventual) s).getVagas()) + ", Horários: " + (((Eventual) s).getHorario()));
+                            }
+                            
+                        }
+                        
                         
 
 
@@ -143,7 +175,7 @@ public class Menu {
 
 
             }catch(InputMismatchException exception){
-                System.out.println("Digite um número!");
+                System.out.println("Digite o tipo pedido!");
             }
             
         }

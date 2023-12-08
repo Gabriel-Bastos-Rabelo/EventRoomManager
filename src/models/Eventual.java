@@ -13,10 +13,19 @@ public class Eventual extends Solicitacao{
         super(ano, semestre, curso);
         this.finalidade = finalidade;
         this.horario = horario;
+        this.vagas = vagas;
     }
 
 
     public String getHorario(){
         return this.horario;
+    }
+
+    public String getFinalidade(){
+        return this.finalidade;
+    }
+
+    public int getVagas(){
+        return this.vagas;
     }
 }
