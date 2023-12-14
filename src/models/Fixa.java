@@ -24,4 +24,19 @@ public class Fixa extends Solicitacao{
     public int getVagas(){
         return this.vagas;
     }
+
+    @Override
+    public String toString() {
+        return "Fixa{" +
+               "ano=" + getAno() +
+               ", semestre=" + getSemestre() +
+               ", curso='" + getCurso() + '\'' +
+               ", disciplina='" + disciplina + '\'' +
+               ", vagas=" + vagas +
+               ", horario='" + horario + '\'' +
+               '}';
+    }
+    
+               
+               
 }

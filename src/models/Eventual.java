@@ -28,4 +28,17 @@ public class Eventual extends Solicitacao{
     public int getVagas(){
         return this.vagas;
     }
+
+    @Override
+    public String toString() {
+        return "Eventual{" +
+               "ano=" + getAno() +
+               ", semestre=" + getSemestre() +
+               ", curso='" + getCurso() + '\'' +
+               ", finalidade='" + finalidade + '\'' +
+               ", vagas=" + vagas +
+               ", horario='" + horario + '\'' +
+               ", data='" + (date != null ? date.toString() : "não definida") + '\'' +
+               '}';
+    }
 }

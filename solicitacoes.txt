@@ -1,3 +1,2 @@
-fixa;2023;1;ciencia da computação;ed1;50;24T23
-eventual;2023;1;ciencia da computação;tcc;100;24T12
-fixa;2024;1;biologia;quimica 1;30;24T12
+fixa;2023;1;direito;direito do consumidor;40;23T12;202
+fixa;2023;1;medicina;cardiologia;30;35T12;202

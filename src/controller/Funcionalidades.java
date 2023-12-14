@@ -71,7 +71,7 @@ public class Funcionalidades {
     }
 
     public void carregarSolicitacoes(){
-        File arquivo = new File("./solicitacoes.txt");
+        /*File arquivo = new File("./solicitacoes.txt");
         try{
             FileReader fr = new FileReader(arquivo);
             BufferedReader br = new BufferedReader(fr);
@@ -92,11 +92,43 @@ public class Funcionalidades {
 
                 Espaco melhorOpcao = this.melhorOpcao(espacosDisponiveis, Integer.parseInt(array[5]));
                 if(array[0].equals("fixa")){
+                    System.out.println("chegou aqui para o cadastro a solicitação para a sala " + melhorOpcao.getNome());
                     dados.get(melhorOpcao).put(array[6], new Fixa(Integer.parseInt(array[1]), Integer.parseInt(array[2]), array[3], array[4], Integer.parseInt(array[5]), array[6]));
                 }
                 else{
 
                     dados.get(melhorOpcao).put(array[6], new Eventual(Integer.parseInt(array[1]), Integer.parseInt(array[2]), array[3], array[4], Integer.parseInt(array[5]), array[6]));
+                }
+                
+            }
+
+            br.close();
+            fr.close();
+
+        }catch(IOException exception){
+            System.out.println(exception.getMessage());
+        }*/
+
+
+        File arquivo = new File("./solicitacoes.txt");
+
+        try{
+            FileReader fr = new FileReader(arquivo);
+            BufferedReader br = new BufferedReader(fr);
+
+            while(br.ready()){
+                String linha = br.readLine();
+                String array[] = new String[8];
+                array = linha.split(";");
+                
+                Espaco espaco = espacos.get(array[7]);
+                
+                if(array[0].equals("fixa")){
+                    dados.get(espaco).put(array[6], new Fixa(Integer.parseInt(array[1]), Integer.parseInt(array[2]), array[3], array[4], Integer.parseInt(array[5]), array[6]));
+                }
+                else{
+
+                    dados.get(espaco).put(array[6], new Eventual(Integer.parseInt(array[1]), Integer.parseInt(array[2]), array[3], array[4], Integer.parseInt(array[5]), array[6]));
                 }
                 
             }
@@ -134,7 +166,7 @@ public class Funcionalidades {
 
 
                    
-                    bw.write("fixa" + ";" + ano + ";" + semestre + ";" + curso + ";" + disciplina + ";" + vagas + ";" + horario + "\n");
+                    bw.write("fixa" + ";" + ano + ";" + semestre + ";" + curso + ";" + disciplina + ";" + vagas + ";" + horario + ";" +  melhorOpcao.getNome() + "\n");
 
                     bw.close();
                     fw.close();
@@ -180,7 +212,7 @@ public class Funcionalidades {
 
 
                    
-                    bw.write("eventual" + ";" + ano + ";" + semestre + ";" + curso + ";" + finalidade + ";" + vagas + ";" + horario + "\n");
+                    bw.write("eventual" + ";" + ano + ";" + semestre + ";" + curso + ";" + finalidade + ";" + vagas + ";" + horario +  ";" + melhorOpcao.getNome() + "\n");
 
                     bw.close();
                     fw.close();
@@ -353,7 +385,9 @@ public class Funcionalidades {
         Espaco espaco = espacos.get(nome);
         
         if(espaco != null){
+            
             Hashtable<String, Solicitacao> solicitacoes = dados.get(espaco);
+            System.out.println(solicitacoes.size());
 
             return solicitacoes;
         }
