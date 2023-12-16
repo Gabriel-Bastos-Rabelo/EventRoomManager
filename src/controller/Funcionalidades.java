@@ -71,45 +71,7 @@ public class Funcionalidades {
     }
 
     public void carregarSolicitacoes(){
-        /*File arquivo = new File("./solicitacoes.txt");
-        try{
-            FileReader fr = new FileReader(arquivo);
-            BufferedReader br = new BufferedReader(fr);
-
-            while(br.ready()){
-                String linha = br.readLine();
-                String array[] = new String[7];
-                array = linha.split(";");
-                ArrayList<String> horarios = this.gerarCombinacoesHorarios(array[6]);
-                ArrayList<Espaco> espacosDisponiveis = new ArrayList<>();
-                Enumeration<Espaco> e = dados.keys();
-                while(e.hasMoreElements()){
-                    Espaco espaco = e.nextElement();
-                    if(this.verificarDisponibilidadeSala(espaco.getMatriz(), horarios) == true){
-                        espacosDisponiveis.add(espaco);
-                    }
-                }
-
-                Espaco melhorOpcao = this.melhorOpcao(espacosDisponiveis, Integer.parseInt(array[5]));
-                if(array[0].equals("fixa")){
-                    System.out.println("chegou aqui para o cadastro a solicitação para a sala " + melhorOpcao.getNome());
-                    dados.get(melhorOpcao).put(array[6], new Fixa(Integer.parseInt(array[1]), Integer.parseInt(array[2]), array[3], array[4], Integer.parseInt(array[5]), array[6]));
-                }
-                else{
-
-                    dados.get(melhorOpcao).put(array[6], new Eventual(Integer.parseInt(array[1]), Integer.parseInt(array[2]), array[3], array[4], Integer.parseInt(array[5]), array[6]));
-                }
-                
-            }
-
-            br.close();
-            fr.close();
-
-        }catch(IOException exception){
-            System.out.println(exception.getMessage());
-        }*/
-
-
+        
         File arquivo = new File("./solicitacoes.txt");
 
         try{
@@ -387,7 +349,7 @@ public class Funcionalidades {
         if(espaco != null){
             
             Hashtable<String, Solicitacao> solicitacoes = dados.get(espaco);
-            System.out.println(solicitacoes.size());
+            
 
             return solicitacoes;
         }
@@ -397,7 +359,7 @@ public class Funcionalidades {
 
 
     public ArrayList<Solicitacao> gerarRelatorioPorCurso(String curso){
-        //private Hashtable<Espaco, Hashtable<String, Solicitacao>> dados;
+        
 
         Enumeration<Espaco> e = dados.keys();
 
