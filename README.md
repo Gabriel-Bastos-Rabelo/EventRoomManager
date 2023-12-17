@@ -1,6 +1,6 @@
 # Room Management System - Detailed Documentation
 ## Overview
-The Room Management System is a robust Java application designed to efficiently manage spaces such as classrooms in educational institutions. Built with Java's Swing library for graphical user interface, this system offers an interactive and user-friendly solution for reserving and allocating spaces, optimizing the use of available resources.
+The Room Management System is a Java application designed to efficiently manage spaces such as classrooms in educational institutions. Built with Java's Swing library for graphical user interface, this system offers an interactive and user-friendly solution for reserving and allocating spaces, optimizing the use of available resources.
 
 
 

@@ -1,2 +1,2 @@
 fixa;2023;1;direito;direito do consumidor;40;23T12;202
-fixa;2023;1;medicina;cardiologia;30;35T12;202
+fixa;2023;1;ciencia da computação;ed1;40;35T12;203
